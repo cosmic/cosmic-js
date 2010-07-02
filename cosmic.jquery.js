@@ -26,19 +26,23 @@ jQuery.fn.formatValFrench = function() {
  * Vertically align in the middle the contents of the element by
  * changing its height and padding.
  *
- * For example if <foo> actually takes up 30px but has the style:
+ * For example if the element actually takes up 30px but has the style:
  *   height:40px
- * this will change the style to:
+ * This will change the style to:
  *   height:auto; padding-top:5px; padding-bottom:5px
 **/
 $.fn.verticalAlignPadding = function() {
   $(this).each(function() {
     var $this = $(this),
-        height = $this.height()
+        paddingTop = parseInt($this.css('padding-top'), 10),
+        paddingBottom = parseInt($this.css('padding-bottom'), 10),
+        height = parseInt($this.css('height'), 10) - paddingTop - paddingBottom
+
+    // Build a new height by adjusting padding only
     $this.css('height', 'auto')
     var autoHeight = $this.height(),
         diff = (height-autoHeight)/2
-    $this.css({ 'padding-top': diff, 'padding-bottom': diff })
+    $this.css({ 'padding-top': paddingTop+diff, 'padding-bottom': paddingBottom+diff })
   })
 }
 
