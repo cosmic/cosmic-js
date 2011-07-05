@@ -98,16 +98,16 @@ $.fn.clearDefault = function() {
 //
 // Examples:
 //   <input id="bob" class="error" /> <label for="bob">Bob</label>
-//   <script>$('label').copy_error_class_from_input()</script>
+//   <script>$('label').copyErrorClassFromInput()</script>
 //   # => <input id="bob" class="error" /> <label for="bob" class="error">Bob</label>
 //
 //   <div><input class="error" /></div>
-//   <script>$('div').copy_error_class_from_input()</script>
+//   <script>$('div').copyErrorClassFromInput()</script>
 //   # => <div class="error"><input class="error" /></div>
-$.fn.copy_error_class_from_input = function() {
+$.fn.copyErrorClassFromInput = function() {
   return $(this).each(function(i, elem) {
-    var id_for = $(elem).attr('for');
-    var input = id_for ? $('#'+id_for+'.error') : $(this).find('input.error');
+    var idFor = $(elem).attr('for');
+    var input = idFor ? $('#'+idFor+'.error') : $(this).find('input.error');
     if (input.length > 0)
       $(this).addClass('error');
   })
@@ -155,9 +155,10 @@ $.fn.addNthChildClass = function() {
   })
 }
 
-// Fade out and show another element during `duration_in_seconds` seconds
-// $(jQuery).replace_with_fade_with_duration('#elem', 10)
-$.fn.replace_with_fade_with_duration = function(replace, duration_in_seconds) {
+
+// Fade out and show another element during `durationInSeconds` seconds
+// $(jQuery).replaceWithFadeWithDuration('#elem', 10)
+$.fn.replaceWithFadeWithDuration = function(replace, durationInSeconds) {
   return $(this).map(function(i, elem) {
     $(elem).fadeOut('fast', function() {
       $(replace).fadeIn('slow', function() {
@@ -165,7 +166,7 @@ $.fn.replace_with_fade_with_duration = function(replace, duration_in_seconds) {
           $(replace).fadeOut('fast', function() {
             $(elem).fadeIn('slow');
           });
-        }, duration_in_seconds * 1000);
+        }, durationInSeconds * 1000);
       });
     });
   });
@@ -231,12 +232,12 @@ $.fn.ajaxLoadingClass = function(classname) {
 //   })
 $.fn.ajax = function(options) {
   return $(this).each(function() {
-    var default_options = {
+    var defaultOptions = {
       type: $(this).attr('method'),
       url: $(this).attr('action'),
       data: $(this).serialize(),
     }
-    return $.ajax($.extend(default_options, options))
+    return $.ajax($.extend(defaultOptions, options))
   })
 }
 
