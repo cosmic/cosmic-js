@@ -1,15 +1,29 @@
-// Change the window location #hash
-// But makes sure it doesn't scroll by renaming the id temporarily
+// Change the window location #hash and makes sure it doesn't scroll
+// by renaming the id temporarily
+// Example: $.changeHashWithoutScrolling('#foo')
 $.changeHashWithoutScrolling = function(hash) {
-  var elem = $(hash),
-      id = elem.attr('id')
+  var elem = $(hash)
+  if (!elem.length)
+    return
+  var id = elem.attr('id')
   elem.attr('id', id+'-tmp')
   window.location.hash = hash
   elem.attr('id', id)
 }
 
-// Return the element where points this element's anchor
-// Example :
+// Returns or replaces remplace the full html of the first element
+// Example:
+//   $('<p>').html()       # => 'Foo'
+//   $('<p>').outerHtml()  # => '<p>Foo</p>'
+//   $('<p>').outerHtml('<div>Toto</div>')
+$.fn.outerHtml = function(s) {
+  return s
+    ? this.before(s).remove()
+    : $('<p>').append(this.eq(0).clone()).html()
+}
+
+// Return the element where the current anchor link points to
+// Example:
 //   <a href="#bar">Foo</a>
 //   <span id="bar">Bar</span>
 //   <script>
